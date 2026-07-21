@@ -13,7 +13,7 @@
       "name": "bing-bang-project-spinup",
       "source": "./plugins/bing-bang-project-spinup",
       "description": "When a proposal is accepted in Bonsai, spin up the project + tasks, distribute sold hours at the blended rate, build the Drive folder, and drop a pre-filled creative brief. Never notifies the client; asks before assigning people.",
-      "version": "0.2.0"
+      "version": "0.3.0"
     }
   ]
 }
