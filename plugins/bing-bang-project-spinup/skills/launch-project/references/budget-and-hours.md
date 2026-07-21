@@ -10,13 +10,16 @@ stay honest. Run it after the tasks exist (template applied + first task created
 ## The distributable-hours formula
 
 ```
-distributable hours = (total sale price − contractor charges) ÷ blended rate
+distributable hours = (total sale price − billed expense amounts) ÷ blended rate
 ```
 
 - **Total sale price** — the grand total on the accepted proposal (what the client pays).
-- **Contractor charges** — the flat amount(s) paid to outside contractors for this project. These are
-  a pass-through **expense**, not internal labor, so they come out before we distribute hours. Ask the
-  operator for each contractor line and its dollar amount.
+- **Billed expense amounts** — for each pass-through expense/contractor line, the amount we **bill the
+  client** (not our cost). Expenses are a pass-through, not internal labor, so the client-billed amount
+  comes out before we distribute hours. Ask the operator for two numbers per line — what we **pay the
+  contractor** (cost) and what we **charge the client** (billable) — and subtract the **billable**
+  amount here. (When cost = charge, i.e. no markup, the two are the same.) The cost-vs-billable split
+  is what makes Bonsai show the client the right number — see "Expenses & markup" below.
 - **Blended rate** — Bing Bang's standard internal rate. **Default: `$175/hr`.** This is baked in as
   the standard; still show it in the math and let the operator override for a one-off if they say so.
 
@@ -26,7 +29,7 @@ Convert to minutes for Bonsai: `distributable minutes = round(distributable hour
 ### Worked example (MAN-2678, the reference project)
 
 - Total sale price: **$20,780**
-- Contractor charge (one outside contractor): **$3,000**
+- Expense (one outside contractor, billed to client at cost — no markup): cost **$3,000**, billable **$3,000**
 - Blended rate: **$175/hr**
 - Distributable hours = (20,780 − 3,000) ÷ 175 = **101.6 h = 6,096 minutes**
 
@@ -35,8 +38,8 @@ Every internal task's `time_estimate_in_minutes` must sum to **6,096**.
 ## Contractor-handled (and client-handled) tasks get ZEROED
 
 Any task delivered by an outside contractor — or handled directly by the client — carries **no
-internal hours**. Set `time_estimate_in_minutes = null`. The contractor's dollars already left the
-pool in the formula above; leaving hours on those tasks would double-count and inflate the estimate.
+internal hours**. Set `time_estimate_in_minutes = null`. The billed expense already left the pool in
+the formula above; leaving hours on those tasks would double-count and inflate the estimate.
 
 In the reference project two tasks were zeroed:
 - the "confirm contractor capture" coordination task (client handles it), and
@@ -55,7 +58,22 @@ Ask the operator which tasks, if any, are contractor- or client-delivered, and z
    hours — especially the run-of-show / planning tasks — until the pool is exhausted. Small
    delivery/coordination tasks can take short placeholder estimates (a handful of minutes each).
 4. **Never exceed the pool.** If anchored tasks already sum above the distributable total, stop and
-   flag it to the operator — the sale price or contractor figure is probably off.
+   flag it to the operator — the sale price or expense figure is probably off.
+
+## Expenses & markup (so Bonsai bills the client correctly)
+
+Bonsai tracks each expense with a **cost** (what we pay) and a **billable amount** (what the client
+pays). Getting both right is what makes the client see the correct charge and keeps margin honest.
+
+For each expense/contractor line, capture **both** numbers from the operator:
+- **Cost** = what we pay the contractor.
+- **Billable amount** = what we charge the client.
+- **Markup %** = (billable − cost) ÷ cost × 100 — record it for reference.
+
+In the Bonsai project's **Expenses tab**, enter the **cost** in the cost field and the **billable
+amount** in the billable field. Bonsai shows the client the billable amount. There is no expense or
+`update_project` API, so enter expenses and the project budget number **via the browser** (SKILL.md
+Hard Rule 5). Remember: the hours formula above subtracts the **billable** amount, not the cost.
 
 ## Verify before hand-off
 
@@ -65,5 +83,5 @@ flex tasks until it does. Report the final total in hours to the operator as par
 
 > API notes: `create_task` / `update_task` have no field for a task-list/section or for estimate
 > rollups — the sum is something you compute yourself by listing tasks. There is no `update_project`,
-> so the project-level budget number and the contractor expense line are set in the Bonsai UI, not the
-> API. Log the contractor flat fee under the project's Expenses tab so margin reads correctly.
+> so the project-level budget number and the expense lines (cost + billable/markup) are set in the
+> Bonsai UI via the browser, not the API.
