@@ -6,18 +6,16 @@ Subscribe once and you'll get every plugin here, plus updates automatically.
 ## Add this marketplace in Cowork
 In a Cowork chat, run:
 
-    /plugin marketplace add itsbingbang/bing-bang-marketplace
-
-(Replace `itsbingbang/bing-bang-marketplace` with wherever this repo actually lives.)
+/plugin marketplace add ryyther/bing-bang-marketplace
 
 ## Install a plugin from it
 
-    /plugin install bing-bang-project-spinup@bing-bang
+/plugin install bing-bang-project-spinup@bing-bang
 
 ## What's inside
 - **bing-bang-project-spinup** — turns an accepted Bonsai proposal into a fully
-  set-up project (tasks with sold hours distributed, Drive folder, pre-filled
-  creative brief). Never contacts the client; asks before assigning people.
+set-up project (tasks with sold hours distributed, Drive folder, pre-filled
+creative brief). Never contacts the client; asks before assigning people.
 
 ## Updating a plugin
 1. Bump the `version` in the plugin's `.claude-plugin/plugin.json`.
