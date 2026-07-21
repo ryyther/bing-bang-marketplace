@@ -1,0 +1,7 @@
+{
+  "name": "bing-bang-project-spinup",
+  "version": "0.2.0",
+  "description": "Bing Bang's project launch system: when a proposal is accepted in Bonsai, spin up the Bonsai project + tasks, distribute the sold hours across the tasks at the standard blended rate, build the Google Drive folder (incl. _Client Services), and drop a pre-filled creative brief linked in the project overview. Never notifies the client and asks before assigning people. Includes a full step-by-step runbook so anyone on the team can run the whole pipeline.",
+  "author": { "name": "Bing Bang" },
+  "keywords": ["bonsai", "google-drive", "project-management", "creative-brief", "agency", "onboarding", "budget", "hours"]
+}
